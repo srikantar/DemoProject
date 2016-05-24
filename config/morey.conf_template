@@ -1,0 +1,14 @@
+;----------------------------------------------------------
+; Configures the settings for ad hoc logging
+;
+;  LOGFILE    	 		: where you want the logfile to go
+;  LOGTIMEFORMAT   	 	: format for the timestamp in the log
+;  LOGFORMAT            : format for the log line
+;  LOGNAME              : name of the log
+
+[logging]
+logPath = ../logs/
+logFileName = morey.log
+logTimeFormat = %Y-%m-%d %H:%M:%S
+logFormat = %(asctime)s %(levelname)s %(message)s
+logname = morey
