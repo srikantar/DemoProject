@@ -1,14 +1,25 @@
 ;----------------------------------------------------------
 ; Configures the settings for ad hoc logging
 ;
-;  LOGFILE    	 		: where you want the logfile to go
+;  LOGPATH              : where to put the logfile
+;  LOGFILE    	 		: filename for logfile
 ;  LOGTIMEFORMAT   	 	: format for the timestamp in the log
 ;  LOGFORMAT            : format for the log line
 ;  LOGNAME              : name of the log
 
 [logging]
 logPath = ../logs/
-logFileName = morey.log
+logFileName = <logfilename>.log
 logTimeFormat = %Y-%m-%d %H:%M:%S
 logFormat = %(asctime)s %(levelname)s %(message)s
-logname = morey
+logName = <log name>
+
+;----------------------------------------------------------
+; Configures the settings for listener
+;
+;  UDP_IP    	 		: IP address of the Morey listener
+;  UDP_PORT     	 	: Port (UDP) for listener
+
+[listener]
+UDP_IP = <IP>
+UDP_PORT = <PORT>
