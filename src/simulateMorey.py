@@ -87,7 +87,7 @@ def executeScenario(scenarioFile, sock, logger):
             textPackage = useCurrentDate(line.replace("|",""),"1001").rstrip()
             logger.info("Xmit: "+textPackage) 
             package = textPackage.decode("hex")
-            #sock.sendto(package, (cfg.get('listener', 'UDP_IP'), cfg.getint('listener', 'UDP_PORT')))
+            sock.sendto(package, (cfg.get('listener', 'UDP_IP'), cfg.getint('listener', 'UDP_PORT')))
     # Fix this. Not critical.
     file.close()     
 
