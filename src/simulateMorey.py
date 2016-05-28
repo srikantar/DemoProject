@@ -48,9 +48,17 @@ def getDate(line):
 
 # This replaces the original timestamp in the data with the current one.
 def useCurrentDate(line, mask):
-    start=line.index(mask)
-    current=line[start:start+8]
-    line=line.replace(current,str(hex(int(round(time.time()))))[2:])
+    done = False
+    currentPos = 0
+    while not done:
+        start=line.find(mask, currentPos)
+        if start < 0:
+            done = True
+        else:
+            # Going to replace 1001 xx yy zz ww
+            current=line[start:start+12]
+            line=line.replace(current,'1001'+str(hex(int(round(time.time()))))[2:])
+            currentPos = start + 1
     return(line)
 
 # This is the logic to figure out the original timestamp of the data in the scenario file.
@@ -75,13 +83,11 @@ def executeScenario(scenarioFile, sock, logger):
             else:
                 waitTime = (currentTime - lastTime).total_seconds()
         elif len(line)>100:
-            if waitTime == 0:
-                replaceDate = getOriginalTime(line)
             time.sleep(waitTime)
-            textPackage = useCurrentDate(line.replace("|",""),replaceDate).rstrip()
+            textPackage = useCurrentDate(line.replace("|",""),"1001").rstrip()
             logger.info("Xmit: "+textPackage) 
             package = textPackage.decode("hex")
-            sock.sendto(package, (cfg.get('listener', 'UDP_IP'), cfg.getint('listener', 'UDP_PORT')))
+            #sock.sendto(package, (cfg.get('listener', 'UDP_IP'), cfg.getint('listener', 'UDP_PORT')))
     # Fix this. Not critical.
     file.close()     
 
