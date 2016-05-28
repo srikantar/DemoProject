@@ -55,7 +55,7 @@ def useCurrentDate(line, mask):
         if start < 0:
             done = True
         else:
-            # Going to replace 1001 xx yy zz ww
+            # Going to replace 1001 57 yy zz ww
             current=line[start:start+12]
             line=line.replace(current,'1001'+str(hex(int(round(time.time()))))[2:])
             currentPos = start + 1
@@ -84,7 +84,7 @@ def executeScenario(scenarioFile, sock, logger):
                 waitTime = (currentTime - lastTime).total_seconds()
         elif len(line)>100:
             time.sleep(waitTime)
-            textPackage = useCurrentDate(line.replace("|",""),"1001").rstrip()
+            textPackage = useCurrentDate(line.replace("|",""),"100157").rstrip()
             logger.info("Xmit: "+textPackage) 
             package = textPackage.decode("hex")
             sock.sendto(package, (cfg.get('listener', 'UDP_IP'), cfg.getint('listener', 'UDP_PORT')))
